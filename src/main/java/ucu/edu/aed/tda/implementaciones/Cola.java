@@ -4,30 +4,26 @@ import ucu.edu.aed.tda.interfaces.TDACola;
 
 public class Cola<T> extends ListaEnlazada<T> implements TDACola<T> {
 
-    public T frente(){
-
-        return ultimo.getDato();
+    @Override
+    public T frente() {
+        if (esVacio()) {
+            return null;
+        }
+        return obtener(0);
     }
 
-    public boolean poneEnCola(T dato){
-        if(primero == null)
-            return false;
-        
-        TDANodo<T> nuevoNodo = new TDANodo<T>(dato);
-        ultimo.setSiguiente(nuevoNodo);
-        ultimo = nuevoNodo;
+    @Override
+    public boolean poneEnCola(T dato) {
+        agregar(dato);
         return true;
     }
-
-    public T quitaDeCola(){
-        if(primero == null)
+    
+    @Override
+    public T quitaDeCola() {
+        if (esVacio()) {
             return null;
-        TDANodo<T> nodoAEliminar = primero;
-        primero = primero.getSiguiente();
-        nodoAEliminar.setSiguiente(null);
-        return nodoAEliminar.getDato();
-
-        
+        }
+        return remover(0);
     }
 
 }
